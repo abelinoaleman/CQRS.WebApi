@@ -39,5 +39,12 @@
             <param name="command"></param>
             <returns></returns>
         </member>
+        <member name="M:CQRS.WebApi.Controllers.ProductController.BulkAsync(Microsoft.AspNetCore.Http.IFormFile)">
+            <summary>
+            Load Data
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

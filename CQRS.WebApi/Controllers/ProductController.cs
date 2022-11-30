@@ -72,5 +72,17 @@ namespace CQRS.WebApi.Controllers
             }
             return Ok(await Mediator.Send(command));
         }
+
+        /// <summary>
+        /// Load Data
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("Bulk")]
+        public async Task<IActionResult> BulkAsync(IFormFile fileName)
+        {
+            return Ok(await Mediator.Send(new BulkProductCommand() { File = fileName }));
+        }
     }
-}
+} 

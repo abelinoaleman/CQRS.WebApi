@@ -11,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System;
+using System.Linq;
 using System.Reflection;
 
 namespace CQRS.WebApi
@@ -41,10 +43,18 @@ namespace CQRS.WebApi
                     Title = "CQRS.WebApi",
                 });
 
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                c.IgnoreObsoleteActions();
+                c.IgnoreObsoleteProperties();
+                c.CustomSchemaIds(type => type.FullName);
+
             });
             #endregion
+
+         
             services.AddScoped<IApplicationContext>(provider => provider.GetService<ApplicationContext>());
 
+        
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddControllers();
 
@@ -60,9 +70,12 @@ namespace CQRS.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
             }
 
             app.UseHttpsRedirection();
+
+            app.UseStaticFiles();
 
             app.UseRouting();
 

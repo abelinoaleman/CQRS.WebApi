@@ -1,6 +1,8 @@
 ﻿using CQRS.WebApi.Domain.Models;
 using CQRS.WebApi.Infrastructure.Context;
 using MediatR;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,6 +18,8 @@ namespace CQRS.WebApi.Application.Features.ProductFeatures.Commands
         public string Description { get; set; }
         public decimal BuyingPrice { get; set; }
         public decimal Rate { get; set; }
+
+        public IFormFile File { get; set; }
         public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, int>
         {
             private readonly IApplicationContext _context;
